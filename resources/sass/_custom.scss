@@ -1,0 +1,94 @@
+.navbar {
+    background-color: $yellow !important;
+}
+
+.card-header {
+    background-color: $yellow !important;
+}
+
+.link {
+    color: $red-link !important;
+}
+
+.navbar-nav {
+    .dropdown-menu {
+        background-color: $yellow !important;
+        border: 0 !important;
+    }
+}
+
+.form-control {
+    &:active {
+        border-color: $red !important;
+    }
+
+    &:focus {
+        border-color: $red !important;
+    }
+}
+
+.border-bottom {
+    border-bottom-color: $grey !important;
+}
+
+.page-link {
+    color: $grey !important;
+}
+
+.text-center#footer {
+    background-color: $yellow !important;
+    color: $black !important;
+}
+
+.card {
+    a {
+        color: $orange !important;
+    }
+
+    .btn-primary {
+        background-color: $green !important;
+        color: $white !important;
+    }
+}
+
+.badge-secondary {
+    background-color: $orange-alloy !important;
+}
+
+.list-group {
+    a {
+        color: $green !important;
+    }
+}
+
+.list-group-item {
+    a {
+        color: $green !important;
+    }
+}
+
+.jumbotron {
+    background-color: $pink !important;
+}
+
+.card-img-top {
+    object-fit: contain !important;
+    height: 100px !important;
+    max-width: 100px !important;
+}
+
+.card-img-top-xl {
+    object-fit: contain !important;
+    height: 200px !important;
+    max-width: 300px !important;
+}
+
+.card-header {
+    background-color: $orange-alloy !important;
+    color: $white !important;
+}
+
+.nav-link.active {
+    background-color: $yellow !important;
+    color: $black !important;
+}

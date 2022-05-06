@@ -1,0 +1,21 @@
+.service-icon {
+    text-align: center;
+    height: 200px;
+}
+
+.service-icon img {
+    display: inline-block;
+    max-width: 230px;
+    height: 200px;
+    vertical-align: middle;
+    padding: 20px 0;
+}
+
+.hoverServices:hover {
+    background-color: #cbaa81; /*#f2f2f2*/
+}
+
+.services-box {
+    border: 1px solid #b0a2a2; /*#e5e5e5*/
+    height: 310px;
+}

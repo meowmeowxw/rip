@@ -1,0 +1,23 @@
+
+body {
+    background-color: #f8eeb6;
+}
+
+.page-item.active .page-link {
+    z-index: 0;
+}
+
+@media screen and ( max-width: 512px ) {
+    li.page-item {
+        display: none;
+    }
+
+    .page-item:first-child,
+    .page-item:nth-child(3),
+    .page-item:nth-last-child(5),
+    .page-item:last-child,
+    .page-item.active,
+    .page-item.disabled {
+        display: block;
+    }
+}
