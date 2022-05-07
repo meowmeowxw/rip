@@ -42,6 +42,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * Get the type of user (Customer or Seller)
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
+     */
+    public function userable()
+    {
+        return $this->morphTo();
+    }
+
     public function seller()
     {
         return $this->hasOne(Seller::class);
@@ -50,5 +59,10 @@ class User extends Authenticatable
     public function customer()
     {
         return $this->hasOne(Customer::class);
+    }
+
+    public function is_seller()
+    {
+        return $this->userable instanceof Seller;
     }
 }

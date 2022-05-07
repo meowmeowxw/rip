@@ -24,6 +24,7 @@ class UserFactory extends Factory
     public function definition()
     {
         static $is_seller = True;
+        static $userable_id = 1;
         $user = [
             'name' => $this->faker->name,
             'email' => $this->faker->unique()->safeEmail,
@@ -33,6 +34,8 @@ class UserFactory extends Factory
             'is_seller' => $is_seller,
         ];
         $is_seller = !$is_seller;
+        $userable_id = $userable_id + 1;
+        echo $userable_id."\n";
         return $user;
     }
 }

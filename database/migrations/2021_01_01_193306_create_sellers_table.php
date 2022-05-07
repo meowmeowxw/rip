@@ -17,14 +17,16 @@ class CreateSellersTable extends Migration
             $table->id();
             $table->string('company', 64);
             $table->string('credit_card', 24);
-            $table->unsignedBigInteger('user_id')->index();
+            // $table->unsignedBigInteger('user_id')->index();
             $table->timestamps();
 
+            /*
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
                 ->onDelete('restrict')
                 ->onUpdate('restrict');
+            */
         });
     }
 
