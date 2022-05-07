@@ -53,7 +53,7 @@
                     </div>
                 </li>
             @else
-                @if (Auth::user()->is_seller)
+                @if (Auth::user()->is_seller())
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('seller.orders')}}">{{__('Orders')}}</a>
                     </li>
@@ -85,7 +85,7 @@
                         {{ Auth::user()->name }}
                     </a>
                     <div class="text-center dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        @if (Auth::user()->is_seller)
+                        @if (Auth::user()->is_seller())
                             <a class="dropdown-item" href="{{route('seller.settings')}}">{{__('Settings')}}</a>
                         @else
                             <a class="dropdown-item" href="{{route('customer.settings')}}">{{__('Settings')}}</a>

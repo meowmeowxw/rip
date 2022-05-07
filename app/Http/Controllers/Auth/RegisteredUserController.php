@@ -79,10 +79,12 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'is_seller' => false,
+            'userable_id' => $customer->id,
+            'userable_type' => Customer::class,
         ]));
 
-
-        $user->customer()->save($customer);
+        $user->saveAll();
+        // $user->customer()->save($customer);
 
         event(new Registered($user));
         Mail::to($request->email)->send(new NewUser($user));

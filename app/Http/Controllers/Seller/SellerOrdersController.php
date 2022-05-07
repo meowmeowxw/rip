@@ -32,7 +32,7 @@ class SellerOrdersController extends Controller
      */
     public function create()
     {
-        $seller = Auth::user()->seller;
+        $seller = Auth::user()->role();
         $sellerOrders = $seller->orders()
             ->orderBy('id', 'DESC')
             ->paginate(10);

@@ -30,15 +30,15 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::define('seller', function(User $user) {
-            return $user->is_seller;
+            return $user->is_seller();
         });
 
         Gate::define('edit-product', function (User $user, Product $product) {
-            return $user->seller->id === $product->seller_id;
+            return $user->role()->id === $product->seller_id;
         });
 
         Gate::define('seller-order', function (User $user, SellerOrder $sellerOrder) {
-            return $user->seller->id === $sellerOrder->seller->id;
+            return $user->role()->id === $sellerOrder->seller->id;
         });
 
         Gate::define('customer-order', function (User $user, Order $order) {

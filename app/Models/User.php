@@ -56,6 +56,21 @@ class User extends Authenticatable
         return $this->hasOne(Seller::class);
     }
 
+    /**
+     * Get the user role (Customer or Seller), abstraction of userable
+     * @return mixed
+     */
+    public function role()
+    {
+        return $this->userable;
+    }
+
+    public function saveAll()
+    {
+        $this->save();
+        $this->role()->save();
+    }
+
     public function customer()
     {
         return $this->hasOne(Customer::class);

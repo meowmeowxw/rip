@@ -16,7 +16,7 @@ class Seller
      */
     public function handle($request, Closure $next)
     {
-        if (!Auth::user()->is_seller) {
+        if (!Auth::user()->is_seller()) {
             return redirect(RouteServiceProvider::HOME);
         }
         return $next($request);

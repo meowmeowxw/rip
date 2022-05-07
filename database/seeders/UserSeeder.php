@@ -90,5 +90,36 @@ class UserSeeder extends Seeder
             'city' => $faker->city,
         ]);
         */
+        $seller = Seller::create([
+            'company' => 'A Company',
+            'credit_card' => '6666666666666',
+        ]);
+        $customer = Customer::create([
+            'credit_card' => $faker->creditCardNumber(),
+            'street' => $faker->streetAddress,
+            'city' => $faker->city,
+        ]);
+        $seller_user = User::create([
+            'name' => 'a',
+            'email' => 'a@a.it',
+            'password' => Hash::make('a'),
+            'remember_token' => Str::random(10),
+            'is_seller' => true,
+            'userable_id' => $seller->id,
+            'userable_type' => Seller::class,
+        ]);
+        $customer_user = User::create([
+            'name' => 'b',
+            'email' => 'b@b.it',
+            'password' => Hash::make('b'),
+            'remember_token' => Str::random(10),
+            'is_seller' => false,
+            'userable_id' => $customer->id,
+            'userable_type' => Customer::class,
+        ]);
+        $seller_user->save();
+        $customer_user->save();
+        $seller->save();
+        $customer->save();
     }
 }

@@ -7,7 +7,7 @@
 @section('scripts')
     <script src="{{ asset('js/btn-product.js') }}" defer></script>
     @if ($errors->any())
-        @if (Auth::user()->is_seller)
+        @if (Auth::user()->is_seller())
             <script>
                 window.addEventListener('load', function () {
                     $('#modalEdit').modal('toggle');
@@ -96,7 +96,7 @@
                             <p class="text-danger "><a href="{{route('login')}}"
                                                        class="link">{{__('Login needed to buy')}}</a></p>
                         @else
-                            @if (!Auth::user()->is_seller)
+                            @if (!Auth::user()->is_seller())
                                 <form id="add_to_cart" action="{{route('customer.cart')}}" method="POST"
                                       class="form-inline justify-content-center">
                                     @csrf

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Seller;
 
 use App\Http\Controllers\Controller;
+use App\Models\Seller;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\NewUser;
@@ -52,17 +53,22 @@ class SellerRegisterController extends Controller
             'credit_card' => 'required|string|digits_between:10,24'
         ]);
 
+        $seller = Seller::create([
+            'company' => $request->company,
+            'credit_card' => $request->credit_card,
+        ]);
+
         Auth::login($user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'is_seller' => true,
+            'userable_id' => $seller->id,
+            'userable_type' => Seller::class,
         ]));
 
-        $user->seller()->create([
-            'company' => $request->company,
-            'credit_card' => $request->credit_card,
-        ]);
+        $user->saveAll();
+        $seller->save();
 
         event(new Registered($user));
         Mail::to($user->email)->send(new NewUser($user));
