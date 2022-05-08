@@ -12,8 +12,8 @@
                                  btntext="{{ __('Save') }}" btnaddclass="btn-block">
                         <x-FormInput name="name" idAndFor="name" :lblName="__('Name')" inputValue="{{Auth::user()->name}}" type="text"/>
                         <x-FormInput name="email" idAndFor="email" :lblName="__('Email')" inputValue="{{Auth::user()->email}}" type="text"/>
-                        <x-FormInput name="company" idAndFor="company" :lblName="__('Company')" inputValue="{{Auth::user()->seller->company}}" type="text"/>
-                        <x-FormInput name="credit_card" idAndFor="credit_card" :lblName="__('Credit Card')" inputValue="{{Auth::user()->seller->credit_card}}" type="text" />
+                        <x-FormInput name="company" idAndFor="company" :lblName="__('Company')" inputValue="{{Auth::user()->role()->company}}" type="text"/>
+                        <x-FormInput name="credit_card" idAndFor="credit_card" :lblName="__('Credit Card')" inputValue="{{Auth::user()->role()->credit_card}}" type="text" />
                     </x-form.form>
                 </x-card>
                 <x-card>

@@ -38,7 +38,7 @@ class CustomerOrdersController extends Controller
             }
         }
 
-        $customer = Auth::user()->customer;
+        $customer = Auth::user()->role();
 
         if ($customer->orders()->count() === 0) {
             return view('customer.orders', [

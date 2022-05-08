@@ -25,7 +25,7 @@ class SellerSettingsController extends Controller
      */
     public function create()
     {
-        $seller = Auth::user()->seller;
+        $seller = Auth::user()->role();
         return view('seller.settings', ['seller' => $seller]);
     }
 

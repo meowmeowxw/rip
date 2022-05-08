@@ -157,14 +157,14 @@
                                                          btnaddclass="btn-block">
                                                 <x-FormInput name="credit_card" idAndFor="credit_card"
                                                              :lblName="__('Credit Card')"
-                                                             inputValue="{{Auth::user()->customer->credit_card}}"
+                                                             inputValue="{{Auth::user()->role()->credit_card}}"
                                                              type="text"/>
                                                 <x-FormInput name="street" idAndFor="street"
                                                              :lblName="__('Street Address')"
-                                                             inputValue="{{Auth::user()->customer->street}}"
+                                                             inputValue="{{Auth::user()->role()->street}}"
                                                              type="text"/>
                                                 <x-FormInput name="city" idAndFor="city" :lblName="__('City')"
-                                                             inputValue="{{Auth::user()->customer->city}}" type="text"/>
+                                                             inputValue="{{Auth::user()->role()->city}}" type="text"/>
                                             </x-form.form>
                                         </div>
                                     </div>

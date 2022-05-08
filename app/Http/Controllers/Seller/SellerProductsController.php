@@ -38,7 +38,7 @@ class SellerProductsController extends Controller
             abort(403);
         }
 
-        $product = Auth::user()->seller->products()->find($request->id);
+        $product = Auth::user()->role()->products()->find($request->id);
         $product->active = false;
         $product->quantity = 0;
         $product->save();
@@ -66,7 +66,7 @@ class SellerProductsController extends Controller
             abort(403);
         }
 
-        $product = Auth::user()->seller->products()->find($request->id);
+        $product = Auth::user()->role()->products()->find($request->id);
         $product->name = $request->name;
         $product->description = $request->description;
         $product->price = $request->price;
@@ -113,7 +113,7 @@ class SellerProductsController extends Controller
             'path' => $url,
         ]);
         $product->category_id = $category->id;
-        $product->seller_id = Auth::user()->seller->id;
+        $product->seller_id = Auth::user()->role()->id;
         $product->save();
         return back();
     }
@@ -125,7 +125,7 @@ class SellerProductsController extends Controller
      */
     public function create()
     {
-        return redirect(route('seller.id', Auth::user()->seller->id));
+        return redirect(route('seller.id', Auth::user()->role()->id));
     }
 
     /**
@@ -152,7 +152,7 @@ class SellerProductsController extends Controller
     {
         Auth::user()->is_seller = true;
         Auth::user()->save();
-        Auth::user()->seller()->create([
+        Auth::user()->role()->create([
             'company' => $request->company,
             'credit_card' => $request->credit_card,
         ]);

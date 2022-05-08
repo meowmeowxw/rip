@@ -7,6 +7,8 @@ use App\Mail\NewUser;
 use App\Models\Customer;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
+use Cassandra\Custom;
+use Illuminate\Support\Str;
 use Mail;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -57,22 +59,25 @@ class RegisteredUserController extends Controller
             $request->validate([
                 'credit_card' => 'string|numeric|digits_between:10,24',
             ]);
-            $customer->credit_card = $request->credit_card;
         }
 
         if ($request->filled('street')) {
             $request->validate([
                 'street' => 'string|max:128',
             ]);
-            $customer->street = $request->street;
         }
 
         if ($request->filled('city')) {
             $request->validate([
                 'city' => 'string|max:128',
             ]);
-            $customer->city = $request->city;
         }
+
+        $customer = Customer::create([
+            'credit_card' => $request->credit_card,
+            'street' => $request->street,
+            'city' => $request->city,
+        ]);
 
         Auth::login($user = User::create([
             'name' => $request->name,
@@ -80,11 +85,10 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
             'is_seller' => false,
             'userable_id' => $customer->id,
-            'userable_type' => Customer::class,
+            'userable_type' => 'App\Models\Customer',
         ]));
 
-        $user->saveAll();
-        // $user->customer()->save($customer);
+        // $user->saveA();
 
         event(new Registered($user));
         Mail::to($request->email)->send(new NewUser($user));

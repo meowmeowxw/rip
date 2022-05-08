@@ -25,7 +25,7 @@ class CustomerSettingsController extends Controller
      */
     public function create()
     {
-        $customer = Auth::user()->customer;
+        $customer = Auth::user()->role();
         return view('customer.settings', ['customer' => $customer]);
     }
 

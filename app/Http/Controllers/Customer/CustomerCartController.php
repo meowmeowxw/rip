@@ -126,7 +126,7 @@ class CustomerCartController extends Controller
             $total_price += $ordered_quantity * $product->price;
         }
         return view('customer.cart', [
-            'customer' => Auth::user()->customer,
+            'customer' => Auth::user()->role(),
             'finalOrder' => $finalOrder,
             'total_price' => $total_price,
         ]);
@@ -173,7 +173,7 @@ class CustomerCartController extends Controller
             return back();
         }
 
-        $customer = Auth::user()->customer;
+        $customer = Auth::user()->role();
         $order = new Order([
             'credit_card' => $request->credit_card,
             'street' => $request->street,
