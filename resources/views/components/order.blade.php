@@ -3,7 +3,7 @@
         <div class="card-header d-flex flex-row">
             <div class="mr-auto">{{__('Order ID')}}: <strong>{{$order->id}}</strong></div>
             <!-- <div class="m-auto">{{__('Date')}}: <strong>{{date('d-m-Y', strtotime($order->created_at))}}</strong></div> -->
-            <div class="ml-auto">{{__('Total Price')}}:<strong>{{$order->price}} &euro;</strong></div>
+            <div class="ml-auto">{{__('Total Price')}}:<strong>{{$order->price()}} &euro;</strong></div>
         </div>
     </a>
     <div class="card-body">

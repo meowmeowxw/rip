@@ -171,9 +171,7 @@ class CustomerCartController extends Controller
         }
 
         $customer = Auth::user()->role();
-        $order = new Order([
-            'price' => 0.0,
-        ]);
+        $order = new Order([]);
         $order->shipping_info_id = $customer->shippingInfos->first()->id;
         $order->payment_info_id = $customer->paymentInfo->id;
         $customer->orders()->save($order);
@@ -216,7 +214,7 @@ class CustomerCartController extends Controller
             ]]);
             // $sellerOrder->profit += $profit;
             $sellerOrder->save();
-            $order->price += $sellerOrder->profit();
+            // $order->price += $sellerOrder->profit();
         }
 
         $order->save();

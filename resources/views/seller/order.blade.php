@@ -8,7 +8,7 @@
                     <div class="card-header d-flex flex-row">
                         <div class="mr-auto">{{__('Order ID')}}: <strong>{{$sellerOrder->order_id}}</strong></div>
                         <div class="mx-auto">{{__('Seller Order ID')}}: <strong>{{$sellerOrder->id}}</strong></div>
-                        <div class="ml-auto">{{__('Profit')}}: <strong>{{$sellerOrder->profit}} &euro;</strong></div>
+                        <div class="ml-auto">{{__('Profit')}}: <strong>{{$sellerOrder->profit()}} &euro;</strong></div>
                     </div>
                     <div class="card-body">
                         <div class="card-text">

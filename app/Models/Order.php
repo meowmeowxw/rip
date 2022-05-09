@@ -8,9 +8,7 @@ use App\Models\Product;
 
 class Order extends \Illuminate\Database\Eloquent\Model
 {
-    protected $fillable = [
-        'price',
-    ];
+    protected $fillable = [];
 
     protected $dates = ['deleted_at'];
 
@@ -21,7 +19,11 @@ class Order extends \Illuminate\Database\Eloquent\Model
 
     public function price()
     {
-        return 1;
+        $total = 0.0;
+        foreach ($this->sellerOrders as $so) {
+            $total += $so->profit();
+        }
+        return $total;
     }
 
     public function shippingInfo()

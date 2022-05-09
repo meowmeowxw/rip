@@ -36,8 +36,10 @@ class SellerOrdersController extends Controller
         $sellerOrders = $seller->orders()
             ->orderBy('id', 'DESC')
             ->paginate(10);
-        $totalProfit = $seller->orders()
-            ->sum('profit');
+        $totalProfit = 0.0;
+        foreach ($seller->orders as $so) {
+            $totalProfit += $so->profit();
+        }
 
         return view('seller.orders', [
             'seller' => $seller,

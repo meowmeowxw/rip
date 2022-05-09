@@ -54,6 +54,7 @@ class SubOrderSeeder extends Seeder
             echo $order->profit()."\n";
         }
 
+        /*
         foreach (Order::all() as $order) {
             $order->price = 0;
             foreach ($order->sellerOrders as $sellerOrder) {
@@ -61,5 +62,6 @@ class SubOrderSeeder extends Seeder
             }
             $order->save();
         }
+        */
     }
 }

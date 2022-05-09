@@ -16,7 +16,6 @@ class CreateOrdersTable extends Migration
         $this->down();
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->unsignedDouble('price');
             $table->unsignedBigInteger('customer_id')->index();
             $table->unsignedBigInteger('payment_info_id');
             $table->unsignedBigInteger('shipping_info_id');

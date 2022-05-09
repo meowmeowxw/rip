@@ -24,7 +24,7 @@ class SellerOrder extends Model
 
     public function profit()
     {
-        $total = 0;
+        $total = 0.0;
         foreach ($this->products as $p) {
             $total += $p->pivot->ordered_quantity * $p->pivot->single_price;
         }

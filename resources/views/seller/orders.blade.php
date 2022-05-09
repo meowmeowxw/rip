@@ -12,7 +12,7 @@
                         <a titlte="{{__('Order details')}}" href="{{route('seller.order.id', $sellerOrder->id)}}">
                             <div class="card-header d-flex flex-row">
                                 <div class="mr-auto">{{__('Order ID')}}: <strong>{{$sellerOrder->id}}</strong></div>
-                                <div class="ml-auto">{{__('Profit')}}: <strong>{{$sellerOrder->profit}} &euro;</strong></div>
+                                <div class="ml-auto">{{__('Profit')}}: <strong>{{$sellerOrder->profit()}} &euro;</strong></div>
                         </div>
                         </a>
                         <div class="card-body">

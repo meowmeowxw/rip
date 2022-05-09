@@ -21,7 +21,7 @@ class OrderSeeder extends Seeder
         foreach (range(1, self::NUM_ORDERS) as $i) {
             $created_at = $faker->dateTimeThisYear();
             $order = new Order([
-                'price' => rand(3, 10),
+                //'price' => rand(3, 10),
                 'created_at' => $created_at,
             ]);
             $customer = Customer::all()
