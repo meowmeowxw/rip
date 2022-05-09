@@ -4,12 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\Customer;
 use Faker\Generator as Faker;
-use App\Models\Category;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Str;
-use App\Models\User;
 use App\Models\Order;
-use App\Models\SubOrder;
 
 class OrderSeeder extends Seeder
 {
@@ -25,15 +21,21 @@ class OrderSeeder extends Seeder
         foreach (range(1, self::NUM_ORDERS) as $i) {
             $created_at = $faker->dateTimeThisYear();
             $order = new Order([
-                'credit_card' => Str::random(16),
-                'street' => Str::random(16),
-                'city' => Str::random(16),
                 'price' => rand(3, 10),
                 'created_at' => $created_at,
             ]);
             $customer = Customer::all()
                 ->random(1)
                 ->first();
+            echo $customer."\n";
+            /*$s = $customer->shippingInfos()->first();
+            $p = $customer->paymentInfo()->first();
+            $s->orders()->save($order);
+            $p->orders()->save($order);
+            echo $s."\n";*/
+            $order->payment_info_id = $customer->paymentInfo()->first()->id;
+            $order->shipping_info_id = $customer->shippingInfos()->first()->id;
+            echo $customer->shippingInfos()->first()."\n";
             $customer->orders()->save($order);
         }
     }

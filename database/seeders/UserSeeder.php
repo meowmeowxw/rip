@@ -35,11 +35,9 @@ class UserSeeder extends Seeder
                 'userable_id' => $customer->id,
                 'userable_type' => Customer::class,
             ]);
-            $s = ShippingInfo::factory()->make();
-            $p = PaymentInfo::factory()->make();
             $user->save();
-            $customer->paymentInfo()->save($p);
-            $customer->shippingInfos()->save($s);
+            $customer->paymentInfo()->save(PaymentInfo::factory()->make());
+            $customer->shippingInfos()->saveMany(ShippingInfo::factory()->count(rand(1, 3))->make());
         });
         $s = Seller::find(1);
         $user = $s->user;
@@ -124,6 +122,8 @@ class UserSeeder extends Seeder
         ]);
         $seller_user->save();
         $customer_user->save();
+        $customer->paymentInfo()->save(PaymentInfo::factory()->make());
+        $customer->shippingInfos()->saveMany(ShippingInfo::factory()->count(rand(1, 3))->make());
         $seller->save();
         $customer->save();
     }
