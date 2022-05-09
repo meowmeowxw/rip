@@ -23,11 +23,11 @@
                     </x-slot>
                     <x-form.form action="{{route('customer.settings')}}" btntext="{{ __('Save') }}"
                                  btnaddclass="btn-block"
-                                 inputid="type-shipping" name="type" inputvalue="payment-info">
+                                 inputid="payment-info" name="type" inputvalue="payment-info">
                         <x-FormInput name="card_number" idAndFor="card_number" :lblName="__('Credit Card Number')"
                                      inputValue="{{$customer->paymentInfo->card_number}}" type="text"/>
-                        <x-FormInput name="street" idAndFor="street" :lblName="__('Expire Date')"
-                                     inputValue="{{$customer->paymentInfo->expire}}" type="text"/>
+                        <x-FormInput name="expire" idAndFor="expire" :lblName="__('Expire Date')"
+                                     inputValue="{{$customer->paymentInfo->expire}}" type="date"/>
                     </x-form.form>
                 </x-card>
                 <x-card>
@@ -39,11 +39,11 @@
                                      btnaddclass="btn-block"
                                      inputid="type-shipping" name="type" inputvalue="shipping-info">
                             <x-FormInput name="street" idAndFor="street" :lblName="__('Street')"
-                                         inputValue="{{$shippingInfo->street}}" type="text"/>
+                                         inputValue="{{$shippingInfo->street ?? ''}}" type="text"/>
                             <x-FormInput name="city" idAndFor="city" :lblName="__('City')"
-                                         inputValue="{{$shippingInfo->city}}" type="text"/>
+                                         inputValue="{{$shippingInfo->city ?? ''}}" type="text"/>
                             <x-FormInput name="cap" idAndFor="cap" :lblName="__('CAP')"
-                                         inputValue="{{$shippingInfo->cap}}" type="text"/>
+                                         inputValue="{{$shippingInfo->cap ?? ''}}" type="text"/>
                             <input id="{{'id'.$shippingInfo->id}}" value="{{$shippingInfo->id}}"
                                    name="id"
                                    type="hidden">

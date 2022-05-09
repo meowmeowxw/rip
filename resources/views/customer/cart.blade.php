@@ -155,9 +155,9 @@
                                             <x-form.form action="{{route('customer.cart.buy')}}"
                                                          btntext="{{ __('Buy') }}"
                                                          btnaddclass="btn-block">
-                                                <x-FormInput name="credit_card" idAndFor="credit_card"
+                                                <x-FormInput name="card_number" idAndFor="card_number"
                                                              :lblName="__('Credit Card')"
-                                                             inputValue="{{Auth::user()->role()->credit_card}}"
+                                                             inputValue="{{Auth::user()->role()->card_number}}"
                                                              type="text"/>
                                                 <x-FormInput name="street" idAndFor="street"
                                                              :lblName="__('Street Address')"

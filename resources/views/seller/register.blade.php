@@ -19,18 +19,10 @@
                         <input id="password-confirm" type="password" class="form-control mb-2"
                                name="password_confirmation" required autocomplete="new-password"
                                placeholder="{{__('Confirm Password')}}">
-                        <label for="credit_card"
-                               class="">{{ __('Credit Card') }}</label>
-                        <input id="credit_card" placeholder="{{__('Credit Card')}}" type="text"
-                               class="form-control mb-2 @error('credit_card') is-invalid @enderror"
-                               name="credit_card" value="{{old('credit_card')}}">
-                        @error('credit_card')
-                        <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
                         <x-formInput name="company" idAndFor="company" :lblName="__('Company Name')" type="text"
                                      inputValue="{{old('company')}}"/>
+                        <x-formInput name="description" idAndFor="description" :lblName="__('Company Description')" type="text"
+                                     inputValue="{{old('description')}}"/>
                     </x-form.form>
                 </x-card>
             </div>

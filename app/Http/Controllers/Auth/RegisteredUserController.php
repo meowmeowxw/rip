@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Mail\NewUser;
 use App\Models\Customer;
+use App\Models\PaymentInfo;
 use App\Models\ShippingInfo;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
@@ -52,11 +53,23 @@ class RegisteredUserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|confirmed|min:1',
+            'card_number' => 'required|string|numeric|digits_between:10,24',
+            'expire' => 'required|date',
+            'street' => 'required|string|max:128',
+            'city' => 'required|string|max:128',
+            'cap' => 'required|string|digits_between:3,10',
         ]);
 
-        if ($request->filled('credit_card')) {
+        /*
+        if ($request->filled('card_number')) {
             $request->validate([
                 'card_number' => 'string|numeric|digits_between:10,24',
+            ]);
+        }
+
+        if ($request->filled('expire')) {
+            $request->validate([
+                'expire' => 'date',
             ]);
         }
 
@@ -72,11 +85,12 @@ class RegisteredUserController extends Controller
             ]);
         }
 
-        if ($request->filled('city')) {
+        if ($request->filled('cap')) {
             $request->validate([
-                'cap' => 'string|digits_between:3,5',
+                'cap' => 'string|digits_between:3,10',
             ]);
         }
+        */
 
         $customer = Customer::create([]);
 
@@ -89,16 +103,18 @@ class RegisteredUserController extends Controller
             'userable_type' => 'App\Models\Customer',
         ]));
 
-        $customer->shippingInfo()->save(ShippingInfo::make([
+        $customer->shippingInfos()->save($s = ShippingInfo::make([
             'street' => $request->city,
             'city' => $request->city,
             'cap' => $request->cap,
         ]));
+        $s->save();
 
-        $customer->paymentInfo()->save(ShippingInfo::make([
+        $customer->paymentInfo()->save($p = PaymentInfo::make([
             'card_number' => $request->card_number,
             'expire' => $request->expire,
         ]));
+        $p->save();
 
         event(new Registered($user));
         Mail::to($request->email)->send(new NewUser($user));

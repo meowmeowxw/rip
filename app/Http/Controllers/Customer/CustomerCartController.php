@@ -163,7 +163,7 @@ class CustomerCartController extends Controller
     public function buy(Request $request)
     {
         $request->validate([
-            'credit_card' => 'required|string|digits_between:10,24',
+            'card_number' => 'required|string|digits_between:10,24',
             'street' => 'required|string|max:128',
             'city' => 'required|string|max:128',
         ]);
@@ -175,7 +175,7 @@ class CustomerCartController extends Controller
 
         $customer = Auth::user()->role();
         $order = new Order([
-            'credit_card' => $request->credit_card,
+            'card_number' => $request->card_number,
             'street' => $request->street,
             'city' => $request->city,
             'price' => 0.0,

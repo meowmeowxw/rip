@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Customer;
 use App\Providers\RouteServiceProvider;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 
 class CustomerSettingsController extends Controller
@@ -58,7 +59,7 @@ class CustomerSettingsController extends Controller
                 'card_number' => 'required|string|digits_between:10,24',
                 'expire' => 'required|date',
             ]);
-            $user->role()->paymentInfo->credit_card = $request->credit_card;
+            $user->role()->paymentInfo->card_number = $request->card_number;
             $user->role()->paymentInfo->expire = $request->expire;
             $user->role()->paymentInfo->save();
         } elseIf ($request->type === 'shipping-info') {
@@ -68,8 +69,9 @@ class CustomerSettingsController extends Controller
                 'cap' => 'required|string|digits_between:3,10',
                 'id' => 'required'
             ]);
-            $s = $user->role()->shippingInfos()->find($request->id);
+            $s = $user->role()->shippingInfos->where('id', $request->id)->first();
             if (is_null($s)) {
+                App::abort(403, 's is '.$s);
                 return redirect(route('customer.settings'));
             }
             $s->street = $request->street;

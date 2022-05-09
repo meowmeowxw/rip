@@ -30,14 +30,13 @@ class SellerSettingsController extends Controller
     }
 
     /**
-     * Handle an incoming registration request.
+     * Handle an incoming settings change request.
      *
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      *
      * @throws \Illuminate\Validation\ValidationException
      *
-     * TODO
      */
     public function store(Request $request)
     {
@@ -51,9 +50,9 @@ class SellerSettingsController extends Controller
         $user = Auth::user();
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->seller->company = $request->company;
-        $user->seller->description = $request->description;
-        $user->seller->save();
+        $user->role()->company = $request->company;
+        $user->role()->description = $request->description;
+        $user->role()->save();
         $user->save();
         return redirect(route('seller.settings'));
     }

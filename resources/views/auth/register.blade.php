@@ -19,11 +19,20 @@
                         <input id="password-confirm" type="password" class="form-control mb-2"
                                name="password_confirmation" required autocomplete="new-password"
                                placeholder="{{__('Confirm Password')}}">
-                        <label for=credit_card" class="mb-0">{{__('Credit Card')}}</label>
-                        <input id="credit_card" placeholder="{{__('Credit Card')}}" type="text"
-                               class="form-control mb-2 @error('credit_card') is-invalid @enderror"
-                               name="credit_card" value="{{old('credit_card')}}">
-                        @error('credit_card')
+                        <label for=card_number" class="mb-0">{{__('Credit Card Number')}}</label>
+                        <input id="card_number" placeholder="{{__('Credit Card')}}" type="text"
+                               class="form-control mb-2 @error('card_number') is-invalid @enderror"
+                               name="card_number" value="{{old('card_number')}}">
+                        @error('card_number')
+                        <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                        <label for=expire" class="mb-0">{{__('Credit Card Expire Date')}}</label>
+                        <input id="expire" placeholder="{{__('Credit Card Expire Date')}}" type="date"
+                               class="form-control mb-2 @error('expire') is-invalid @enderror"
+                               name="expire" value="{{old('expire')}}">
+                        @error('expire')
                         <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -42,6 +51,15 @@
                                class="form-control mb-2 @error('city') is-invalid @enderror"
                                name="city" value="{{old('city')}}">
                         @error('city')
+                        <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                        <label for=cap" class="mb-0">{{__('CAP')}}</label>
+                        <input id="cap" placeholder="{{__('CAP')}}" type="text"
+                               class="form-control mb-2 @error('cap') is-invalid @enderror"
+                               name="cap" value="{{old('cap')}}">
+                        @error('cap')
                         <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
