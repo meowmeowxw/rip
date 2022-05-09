@@ -50,12 +50,12 @@ class SellerRegisterController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|confirmed|min:1',
             'company' => 'required|string|max:64',
-            'credit_card' => 'required|string|digits_between:10,24'
+            'description' => 'required|string|max:300'
         ]);
 
         $seller = Seller::create([
             'company' => $request->company,
-            'credit_card' => $request->credit_card,
+            'description' => $request->description,
         ]);
 
         Auth::login($user = User::create([

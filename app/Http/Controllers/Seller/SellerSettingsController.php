@@ -45,14 +45,14 @@ class SellerSettingsController extends Controller
             'name' => 'required|string',
             'email' => 'required|string|email',
             'company' => 'required|string|max:64',
-            'credit_card' => 'required|string|digits_between:10, 24',
+            'description' => 'required|string|max:300',
         ]);
 
         $user = Auth::user();
         $user->name = $request->name;
         $user->email = $request->email;
         $user->seller->company = $request->company;
-        $user->seller->credit_card = $request->credit_card;
+        $user->seller->description = $request->description;
         $user->seller->save();
         $user->save();
         return redirect(route('seller.settings'));

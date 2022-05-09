@@ -19,10 +19,6 @@ class CustomerFactory extends Factory
 
     public function definition()
     {
-        return [
-            'credit_card' => $this->faker->creditCardNumber(),
-            'street' => $this->faker->streetAddress,
-            'city' => $this->faker->city,
-        ];
+        return [];
     }
 }

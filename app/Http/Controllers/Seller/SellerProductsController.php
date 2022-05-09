@@ -138,24 +138,4 @@ class SellerProductsController extends Controller
         return view('seller.product-add');
     }
 
-    /**
-     * Handle an incoming registration request.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     *
-     * TODO
-     */
-    public function store(Request $request)
-    {
-        Auth::user()->is_seller = true;
-        Auth::user()->save();
-        Auth::user()->role()->create([
-            'company' => $request->company,
-            'credit_card' => $request->credit_card,
-        ]);
-        return redirect(RouteServiceProvider::HOME);
-    }
 }

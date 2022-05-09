@@ -25,8 +25,8 @@ class SellerFactory extends Factory
     {
         echo \App\Models\User::class."\n";
         return [
-            'company' => $this->faker->title(),
-            'credit_card' => '66666666666',
+            'company' => $this->faker->name(),
+            'description' => $this->faker->words(rand(5, 10), true),
         ];
     }
 }

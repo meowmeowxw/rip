@@ -12,7 +12,7 @@ class Seller extends \Illuminate\Database\Eloquent\Model
 
     protected $fillable = [
         'company',
-        'credit_card',
+        'description',
     ];
 
     protected $dates = ['deleted_at'];

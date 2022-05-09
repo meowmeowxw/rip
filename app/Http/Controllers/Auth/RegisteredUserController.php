@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Mail\NewUser;
 use App\Models\Customer;
+use App\Models\ShippingInfo;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Cassandra\Custom;
@@ -55,7 +56,7 @@ class RegisteredUserController extends Controller
 
         if ($request->filled('credit_card')) {
             $request->validate([
-                'credit_card' => 'string|numeric|digits_between:10,24',
+                'card_number' => 'string|numeric|digits_between:10,24',
             ]);
         }
 
@@ -71,11 +72,13 @@ class RegisteredUserController extends Controller
             ]);
         }
 
-        $customer = Customer::create([
-            'credit_card' => $request->credit_card,
-            'street' => $request->street,
-            'city' => $request->city,
-        ]);
+        if ($request->filled('city')) {
+            $request->validate([
+                'cap' => 'string|digits_between:3,5',
+            ]);
+        }
+
+        $customer = Customer::create([]);
 
         Auth::login($user = User::create([
             'name' => $request->name,
@@ -84,6 +87,17 @@ class RegisteredUserController extends Controller
             'is_seller' => false,
             'userable_id' => $customer->id,
             'userable_type' => 'App\Models\Customer',
+        ]));
+
+        $customer->shippingInfo()->save(ShippingInfo::make([
+            'street' => $request->city,
+            'city' => $request->city,
+            'cap' => $request->cap,
+        ]));
+
+        $customer->paymentInfo()->save(ShippingInfo::make([
+            'card_number' => $request->card_number,
+            'expire' => $request->expire,
         ]));
 
         event(new Registered($user));

@@ -53,16 +53,29 @@ class CustomerSettingsController extends Controller
             $user->name = $request->name;
             $user->email = $request->email;
             $user->save();
-        } elseif ($request->type === 'customer') {
+        } elseif ($request->type === 'payment-info') {
             $request->validate([
-                'credit_card' => 'required|string|digits_between:10,24',
+                'card_number' => 'required|string|digits_between:10,24',
+                'expire' => 'required|date',
+            ]);
+            $user->role()->paymentInfo->credit_card = $request->credit_card;
+            $user->role()->paymentInfo->expire = $request->expire;
+            $user->role()->paymentInfo->save();
+        } elseIf ($request->type === 'shipping-info') {
+            $request->validate([
                 'street' => 'required|string|max:128',
                 'city' => 'required|string|max:128',
+                'cap' => 'required|string|digits_between:3,10',
+                'id' => 'required'
             ]);
-            $user->customer->credit_card = $request->credit_card;
-            $user->customer->street = $request->street;
-            $user->customer->city = $request->city;
-            $user->customer->save();
+            $s = $user->role()->shippingInfos()->find($request->id);
+            if (is_null($s)) {
+                return redirect(route('customer.settings'));
+            }
+            $s->street = $request->street;
+            $s->city = $request->city;
+            $s->cap = $request->cap;
+            $s->save();
         }
 
         return redirect(route('customer.settings'));

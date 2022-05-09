@@ -15,9 +15,6 @@ class CreateCustomersTable extends Migration
     {
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
-            $table->string('credit_card', 24)->nullable();
-            $table->string('street', 128)->nullable();
-            $table->string('city', 128)->nullable();
             $table->timestamps();
         });
     }
