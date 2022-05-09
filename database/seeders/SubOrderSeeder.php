@@ -44,17 +44,20 @@ class SubOrderSeeder extends Seeder
                 })
                 ->all();
             $order->products()->attach($products);
-            $order->profit = 0.0;
+            // $order->profit = 0.0;
+            /*
             foreach ($order->products as $product) {
                 $order->profit += $product->pivot->total_price;
             }
+            */
             $order->save();
+            echo $order->profit()."\n";
         }
 
         foreach (Order::all() as $order) {
             $order->price = 0;
             foreach ($order->sellerOrders as $sellerOrder) {
-                $order->price += $sellerOrder->profit;
+                $order->price += $sellerOrder->profit();
             }
             $order->save();
         }

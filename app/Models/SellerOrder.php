@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class SellerOrder extends Model
 {
     protected $fillable = [
-        'profit'
     ];
 
     protected $dates = ['deleted_at'];
@@ -21,6 +20,15 @@ class SellerOrder extends Model
     public function status()
     {
         return $this->belongsTo(Status::class);
+    }
+
+    public function profit()
+    {
+        $total = 0;
+        foreach ($this->products as $p) {
+            $total += $p->pivot->ordered_quantity * $p->pivot->single_price;
+        }
+        return $total;
     }
 
     public function products()

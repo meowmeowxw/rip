@@ -163,9 +163,6 @@ class CustomerCartController extends Controller
     public function buy(Request $request)
     {
         $request->validate([
-            'card_number' => 'required|string|digits_between:10,24',
-            'street' => 'required|string|max:128',
-            'city' => 'required|string|max:128',
         ]);
 
         $productsOrder = $request->session()->get('productsOrder');
@@ -175,11 +172,10 @@ class CustomerCartController extends Controller
 
         $customer = Auth::user()->role();
         $order = new Order([
-            'card_number' => $request->card_number,
-            'street' => $request->street,
-            'city' => $request->city,
             'price' => 0.0,
         ]);
+        $order->shipping_info_id = $customer->shippingInfos->first()->id;
+        $order->payment_info_id = $customer->paymentInfo->id;
         $customer->orders()->save($order);
 
         $products = [];
@@ -203,7 +199,7 @@ class CustomerCartController extends Controller
                 $sellerOrder->status_id = Status::where('name', 'waiting')->first()->id;
                 $sellerOrder->seller_id = $seller->id;
                 $sellerOrder->order_id = $order->id;
-                $sellerOrder->profit = 0.0;
+                // $sellerOrder->profit = 0.0;
                 $seller->orders()->save($sellerOrder);
                 $sellerOrder->save();
                 $sellers->put($seller->id, $sellerOrder);
@@ -218,9 +214,9 @@ class CustomerCartController extends Controller
                 'single_price' => $product->price,
                 'product_id' => $product->id,
             ]]);
-            $sellerOrder->profit += $profit;
+            // $sellerOrder->profit += $profit;
             $sellerOrder->save();
-            $order->price += $profit;
+            $order->price += $sellerOrder->profit();
         }
 
         $order->save();

@@ -30,7 +30,7 @@ class SellerOrderSeeder extends Seeder
                 $created_at = $faker->dateTimeThisYear();
 
                 $seller_order = new SellerOrder([
-                    'profit' => 0.0,
+                    //'profit' => 0.0,
                     'status_id' => Status::inRandomOrder()->first()->id,
                     'seller_id' => $seller->id,
                     'order_id' => $order->id,
@@ -38,6 +38,8 @@ class SellerOrderSeeder extends Seeder
                     'updated_at' => $created_at,
                 ]);
                 $seller->orders()->save($seller_order);
+                // echo $seller_order->id." ";
+                // echo $seller_order->profit()."\n";
                 $seller_orders[] = $seller_order;
             }
         }

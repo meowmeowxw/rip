@@ -19,6 +19,11 @@ class Order extends \Illuminate\Database\Eloquent\Model
         return $this->belongsTo(PaymentInfo::class);
     }
 
+    public function price()
+    {
+        return 1;
+    }
+
     public function shippingInfo()
     {
         return $this->belongsTo(ShippingInfo::class);
