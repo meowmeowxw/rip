@@ -53,8 +53,6 @@ class RegisteredUserController extends Controller
             'password' => 'required|string|confirmed|min:1',
         ]);
 
-        $customer = new Customer();
-
         if ($request->filled('credit_card')) {
             $request->validate([
                 'credit_card' => 'string|numeric|digits_between:10,24',
@@ -87,8 +85,6 @@ class RegisteredUserController extends Controller
             'userable_id' => $customer->id,
             'userable_type' => 'App\Models\Customer',
         ]));
-
-        // $user->saveA();
 
         event(new Registered($user));
         Mail::to($request->email)->send(new NewUser($user));

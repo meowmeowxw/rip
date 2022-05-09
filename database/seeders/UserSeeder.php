@@ -4,7 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\Customer;
 use App\Models\User;
-use Database\Factories\SellerFactory;
+use App\Models\ShippingInfo;
+use App\Models\PaymentInfo;
 use Faker\Generator as Faker;
 use App\Models\Seller;
 use Illuminate\Database\Seeder;
@@ -34,7 +35,11 @@ class UserSeeder extends Seeder
                 'userable_id' => $customer->id,
                 'userable_type' => Customer::class,
             ]);
+            $s = ShippingInfo::factory()->make();
+            $p = PaymentInfo::factory()->make();
             $user->save();
+            $customer->paymentInfo()->save($p);
+            $customer->shippingInfos()->save($s);
         });
         $s = Seller::find(1);
         $user = $s->user;

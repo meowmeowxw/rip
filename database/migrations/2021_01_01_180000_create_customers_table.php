@@ -19,14 +19,6 @@ class CreateCustomersTable extends Migration
             $table->string('street', 128)->nullable();
             $table->string('city', 128)->nullable();
             $table->timestamps();
-
-            /*
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
-            */
         });
     }
 

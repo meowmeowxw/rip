@@ -10,12 +10,19 @@ class Order extends \Illuminate\Database\Eloquent\Model
 {
     protected $fillable = [
         'price',
-        'credit_card',
-        'street',
-        'city',
     ];
 
     protected $dates = ['deleted_at'];
+
+    public function paymentInfo()
+    {
+        return $this->belongsTo(PaymentInfo::class);
+    }
+
+    public function shippingInfo()
+    {
+        return $this->belongsTo(ShippingInfo::class);
+    }
 
     public function sellerOrders()
     {

@@ -67,9 +67,6 @@ class SellerRegisterController extends Controller
             'userable_type' => Seller::class,
         ]));
 
-        $user->saveAll();
-        $seller->save();
-
         event(new Registered($user));
         Mail::to($user->email)->send(new NewUser($user));
 

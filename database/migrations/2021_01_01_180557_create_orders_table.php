@@ -17,15 +17,26 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->unsignedDouble('price');
-            $table->string('credit_card', 24);
-            $table->string('street', 128);
-            $table->string('city', 128);
             $table->unsignedBigInteger('customer_id')->index();
+            $table->unsignedBigInteger('payment_info_id');
+            $table->unsignedBigInteger('shipping_info_id');
             $table->timestamps();
 
             $table->foreign('customer_id')
                 ->references('id')
                 ->on('customers')
+                ->onDelete('restrict')
+                ->onUpdate('restrict');
+
+            $table->foreign('payment_info_id')
+                ->references('id')
+                ->on('payment_infos')
+                ->onDelete('restrict')
+                ->onUpdate('restrict');
+
+            $table->foreign('shipping_info_id')
+                ->references('id')
+                ->on('shipping_infos')
                 ->onDelete('restrict')
                 ->onUpdate('restrict');
         });

@@ -4,12 +4,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Notifications\Notifiable;
 
 class Seller extends \Illuminate\Database\Eloquent\Model
 {
 
-    use HasFactory, Notifiable;
+    use HasFactory;
 
     protected $fillable = [
         'company',
@@ -31,7 +30,6 @@ class Seller extends \Illuminate\Database\Eloquent\Model
     public function user()
     {
         return $this->morphOne(User::class, 'userable');
-        // return $this->belongsTo(User::class);
     }
 
 }

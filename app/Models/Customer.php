@@ -11,9 +11,6 @@ class Customer extends \Illuminate\Database\Eloquent\Model
     use HasFactory;
 
     protected $fillable = [
-        'credit_card',
-        'street',
-        'city',
     ];
 
     protected $dates = ['deleted_at'];
@@ -23,10 +20,19 @@ class Customer extends \Illuminate\Database\Eloquent\Model
         return $this->hasMany(Order::class);
     }
 
+    public function shippingInfos()
+    {
+        return $this->hasMany(ShippingInfo::class);
+    }
+
+    public function paymentInfo()
+    {
+        return $this->hasOne(PaymentInfo::class);
+    }
+
     public function user()
     {
         return $this->morphOne(User::class , 'userable');
-        // return $this->belongsTo(User::class);
     }
 
 }
