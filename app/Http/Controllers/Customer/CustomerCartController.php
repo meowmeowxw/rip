@@ -208,7 +208,7 @@ class CustomerCartController extends Controller
             $profit = $product->price * $ordered_quantity;
             $sellerOrder->products()->attach([$products[$product->id] = [
                 'ordered_quantity' => $ordered_quantity,
-                'total_price' => $profit,
+                //'total_price' => $profit,
                 'single_price' => $product->price,
                 'product_id' => $product->id,
             ]]);

@@ -34,7 +34,7 @@ class SubOrderSeeder extends Seeder
                     return [
                         $product->id => [
                             'ordered_quantity' => $quantity,
-                            'total_price' => $product->price * $quantity,
+                            //'total_price' => $product->price * $quantity,
                             'single_price' => $product->price,
                             'created_at' => $created_at,
                             'updated_at' => $created_at,

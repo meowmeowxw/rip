@@ -15,7 +15,7 @@ class CreateSubOrdersTable extends Migration
     public function up()
     {
         Schema::create('sub_orders', function (Blueprint $table) {
-            $table->unsignedDouble('total_price');
+            // $table->unsignedDouble('total_price');
             $table->unsignedDouble('single_price');
             $table->unsignedInteger('ordered_quantity');
             $table->unsignedBigInteger('seller_order_id')->index();

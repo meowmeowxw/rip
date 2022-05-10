@@ -33,7 +33,7 @@ class SellerOrder extends Model
 
     public function products()
     {
-        return $this->belongsToMany(Product::class, 'sub_orders')->withPivot('total_price', 'single_price', 'ordered_quantity');
+        return $this->belongsToMany(Product::class, 'sub_orders')->withPivot('single_price', 'ordered_quantity');
     }
 
     public function seller()
