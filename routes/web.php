@@ -31,6 +31,11 @@ use App\Models\Product;
 |
 */
 
+Route::prefix('/statistics')->group(function() {
+    Route::get('/most-selled-beers', [\App\Http\Controllers\StatisticsController::class, 'mostSelledBeers'])
+        ->name('statistics.mostselledbeers');
+});
+
 Route::prefix('/seller')->group(function () {
     Route::get('/register', [SellerRegisterController::class, 'create'])
         ->name('seller.register');
