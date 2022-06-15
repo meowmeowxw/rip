@@ -79,6 +79,25 @@ class StatisticsController extends Controller
         print_r($sellers_list);
     }
 
-
+    public function customersWhoReceivedMoreOrders()
+    {
+        $x = DB::select(<<<EOF
+                    SELECT c.id, COUNT(s2.name) as num_order_delivered
+                    FROM customers c
+                    JOIN orders o on c.id = o.customer_id
+                    JOIN seller_orders so on o.id = so.order_id
+                    JOIN sellers s on so.seller_id = s.id
+                    JOIN status s2 on so.status_id = s2.id
+                    WHERE s2.id = (SELECT id
+                                   FROM status
+                                   where name = 'delivered'
+                                   LIMIT 1
+                    )
+                    GROUP BY c.id
+                    ORDER BY num_order_delivered DESC
+        EOF
+        );
+        print_r($x);
+    }
 }
 ?>
