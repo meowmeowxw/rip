@@ -33,19 +33,52 @@ class StatisticsController extends Controller
                 echo $k." ".$v."<br>";
             }
         }
-
-
-        //foreach ($most_selled_beer as $k => $v) {
-        //    echo $k." ".$v;
-        //}
-        /*
-        return $most_selled_beer;
-        */
     }
 
-    public function customerWhoPurcasedMore()
+    public function customersWhoPurchasedMore()
     {
-
+        $customers_list = DB::select(<<<'EOF'
+                    SELECT id, u.email, SUM(sold) as purchased_beer
+                    FROM (SELECT c.id, sub_orders.product_id, SUM(sub_orders.ordered_quantity) as sold
+                          FROM sub_orders
+                                   JOIN seller_orders so on sub_orders.seller_order_id = so.seller_id
+                                   JOIN orders o on so.order_id = o.id
+                                   JOIN customers c on o.customer_id = c.id
+                          GROUP BY c.id, sub_orders.product_id) sum_product_id_for_customer
+                    JOIN (
+                        SELECT u.email, u.userable_id
+                        FROM users u
+                        WHERE u.userable_type = 'App\\Models\\Customer'
+                    ) as u on u.userable_id = id
+                    GROUP BY id, u.email
+                    ORDER BY purchased_beer DESC
+                EOF);
+        print_r($customers_list);
+        for ($i = 0; $i < count($customers_list); $i++) {
+            echo "<br>";
+            //echo $customers_list[$i];
+            foreach ($customers_list[$i] as $k => $v) {
+              echo $k." ".$v." ";
+            }
+        }
     }
+
+    public function sellerWhoSoldMore()
+    {
+        $sellers_list = DB::Select(<<<EOF
+                    SELECT id, company, SUM(beer_sold) as total_beer_sold
+                    FROM (
+                          SELECT s.id, s.company, SUM(ordered_quantity) as beer_sold
+                          FROM sub_orders
+                                   JOIN seller_orders so on sub_orders.seller_order_id = so.id
+                                   JOIN sellers s on so.seller_id = s.id
+                          GROUP BY product_id, s.id) beer_sold_by_seller
+                    GROUP BY id
+                    ORDER BY total_beer_sold DESC
+                    EOF);
+        print_r($sellers_list);
+    }
+
+
 }
 ?>

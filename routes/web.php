@@ -34,6 +34,10 @@ use App\Models\Product;
 Route::prefix('/statistics')->group(function() {
     Route::get('/most-selled-beers', [\App\Http\Controllers\StatisticsController::class, 'mostSelledBeers'])
         ->name('statistics.mostselledbeers');
+    Route::get('/customers-who-purchased-more', [\App\Http\Controllers\StatisticsController::class, 'customersWhoPurchasedMore'])
+        ->name('statistics.customerswhopurchasedmore');
+    Route::get('/sellers-who-sold-more', [\App\Http\Controllers\StatisticsController::class, 'sellerWhoSoldMore'])
+        ->name('statistics.sellerswhosoldmore');
 });
 
 Route::prefix('/seller')->group(function () {
