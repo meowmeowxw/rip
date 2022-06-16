@@ -40,6 +40,9 @@ Route::prefix('/statistics')->group(function() {
         ->name('statistics.sellerswhosoldmore');
     Route::get('/customers-who-received-more', [\App\Http\Controllers\StatisticsController::class, 'customersWhoReceivedMoreOrders'])
         ->name('statistics.customerswhoreceivedmore');
+    Route::get('/', function() {
+        return view('statistics');
+    });
 });
 
 Route::prefix('/seller')->group(function () {

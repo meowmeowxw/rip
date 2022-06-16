@@ -23,21 +23,24 @@ class StatisticsController extends Controller
             ->orderBy('selled')
             ->get();
         */
-        $most_selled_beer = json_decode(json_encode(DB::select("SELECT product_id, SUM(ordered_quantity) as sold
+        return json_encode(DB::select("SELECT product_id, p.name, SUM(ordered_quantity) as sold
                 FROM sub_orders
-                GROUP BY product_id
-                ORDER BY sold DESC")), true);
+                JOIN products p on sub_orders.product_id = p.id
+                GROUP BY product_id, p.name
+                ORDER BY sold DESC"));
+        /*
         print_r($most_selled_beer);
         for ($i = 0; $i < count($most_selled_beer); $i++){
             foreach ($most_selled_beer[$i] as $k => $v) {
                 echo $k." ".$v."<br>";
             }
         }
+        */
     }
 
     public function customersWhoPurchasedMore()
     {
-        $customers_list = DB::select(<<<'EOF'
+        return json_encode(DB::select(<<<'EOF'
                     SELECT id, u.email, SUM(sold) as purchased_beer
                     FROM (SELECT c.id, sub_orders.product_id, SUM(sub_orders.ordered_quantity) as sold
                           FROM sub_orders
@@ -52,8 +55,9 @@ class StatisticsController extends Controller
                     ) as u on u.userable_id = id
                     GROUP BY id, u.email
                     ORDER BY purchased_beer DESC
-                EOF);
-        print_r($customers_list);
+                EOF));
+        //print_r($customers_list);
+        /*
         for ($i = 0; $i < count($customers_list); $i++) {
             echo "<br>";
             //echo $customers_list[$i];
@@ -61,11 +65,12 @@ class StatisticsController extends Controller
               echo $k." ".$v." ";
             }
         }
+        */
     }
 
     public function sellerWhoSoldMore()
     {
-        $sellers_list = DB::Select(<<<EOF
+        return json_encode(DB::Select(<<<'EOF'
                     SELECT id, company, SUM(beer_sold) as total_beer_sold
                     FROM (
                           SELECT s.id, s.company, SUM(ordered_quantity) as beer_sold
@@ -75,29 +80,36 @@ class StatisticsController extends Controller
                           GROUP BY product_id, s.id) beer_sold_by_seller
                     GROUP BY id
                     ORDER BY total_beer_sold DESC
-                    EOF);
-        print_r($sellers_list);
+                    EOF));
+        //print_r($sellers_list);
+        //return json_encode()
     }
 
     public function customersWhoReceivedMoreOrders()
     {
-        $x = DB::select(<<<EOF
-                    SELECT c.id, COUNT(s2.name) as num_order_delivered
+        $x = json_encode(DB::select(<<<'EOF'
+                    SELECT c.id, u.email, COUNT(s2.name) as num_order_delivered
                     FROM customers c
                     JOIN orders o on c.id = o.customer_id
                     JOIN seller_orders so on o.id = so.order_id
                     JOIN sellers s on so.seller_id = s.id
                     JOIN status s2 on so.status_id = s2.id
-                    WHERE s2.id = (SELECT id
-                                   FROM status
-                                   where name = 'delivered'
-                                   LIMIT 1
+                    JOIN (
+                       SELECT u.email, u.userable_id
+                       FROM users u
+                       WHERE u.userable_type = 'App\\Models\\Customer'
+                    ) as u on u.userable_id = c.id
+                    WHERE s2.id = (
+                       SELECT id
+                       FROM status
+                       where name = 'delivered'
+                       LIMIT 1
                     )
-                    GROUP BY c.id
+                    GROUP BY c.id, u.email
                     ORDER BY num_order_delivered DESC
-        EOF
-        );
-        print_r($x);
+                    EOF));
+        return $x;
+        // print_r($x);
     }
 }
 ?>
