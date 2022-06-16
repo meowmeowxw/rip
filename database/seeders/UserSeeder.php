@@ -54,7 +54,7 @@ class UserSeeder extends Seeder
             'email' => 'a@a.it',
             'password' => Hash::make('a'),
             'remember_token' => Str::random(10),
-            'is_seller' => true,
+            //'is_seller' => true,
             'userable_id' => $seller->id,
             'userable_type' => Seller::class,
         ]);
@@ -63,7 +63,7 @@ class UserSeeder extends Seeder
             'email' => 'b@b.it',
             'password' => Hash::make('b'),
             'remember_token' => Str::random(10),
-            'is_seller' => false,
+            //'is_seller' => false,
             'userable_id' => $customer->id,
             'userable_type' => Customer::class,
         ]);

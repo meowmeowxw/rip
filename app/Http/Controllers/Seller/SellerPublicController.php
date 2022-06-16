@@ -44,6 +44,7 @@ class SellerPublicController extends Controller
         return view('seller.public', [
             'seller' => $seller,
             'products' => $products,
+            'reviews' => $seller->reviews,
         ]);
     }
 

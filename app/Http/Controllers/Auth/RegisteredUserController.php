@@ -98,7 +98,7 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'is_seller' => false,
+            //'is_seller' => false,
             'userable_id' => $customer->id,
             'userable_type' => 'App\Models\Customer',
         ]));

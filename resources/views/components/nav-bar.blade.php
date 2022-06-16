@@ -53,6 +53,9 @@
                     </div>
                 </li>
             @else
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('statistics')}}">{{__('Statistics')}}</a>
+                </li>
                 @if (Auth::user()->is_seller())
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('seller.orders')}}">{{__('Orders')}}</a>

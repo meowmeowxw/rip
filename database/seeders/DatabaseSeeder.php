@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             OrderSeeder::class,
             SellerOrderSeeder::class,
             SubOrderSeeder::class,
+            ReviewsSeeder::class,
         ]);
     }
 }

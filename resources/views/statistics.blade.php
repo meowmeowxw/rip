@@ -37,7 +37,7 @@
     </div>
 @endsection
 
-<script src="{{ asset('js/json-to-table.js') }}" defer></script>
+<script src="{{ asset('js/json-to-table.js') }}"></script>
 <script defer>
     fetch("{{route('statistics.customerswhoreceivedmore')}}")
         .then(response => response.json())

@@ -31,7 +31,7 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
             'remember_token' => Str::random(10),
-            'is_seller' => $is_seller,
+            //'is_seller' => $is_seller,
         ];
         $is_seller = !$is_seller;
         $userable_id = $userable_id + 1;

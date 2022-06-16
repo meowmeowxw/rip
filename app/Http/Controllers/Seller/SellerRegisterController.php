@@ -62,7 +62,7 @@ class SellerRegisterController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'is_seller' => true,
+            //'is_seller' => true,
             'userable_id' => $seller->id,
             'userable_type' => Seller::class,
         ]));

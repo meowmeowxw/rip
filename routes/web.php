@@ -42,7 +42,7 @@ Route::prefix('/statistics')->group(function() {
         ->name('statistics.customerswhoreceivedmore');
     Route::get('/', function() {
         return view('statistics');
-    });
+    })->name('statistics');
 });
 
 Route::prefix('/seller')->group(function () {
@@ -103,6 +103,8 @@ Route::prefix('/customer')->group(function () {
 Route::get('/product/{id}', [ProductController::class, 'view'])
     ->name('product.id')
     ->whereNumber('id');
+Route::post('/product/set-review', [ProductController::class, 'setReview'])
+    ->name('product.set-review');
 
 Route::get('/category/{id}', [CategoryController::class, 'view'])
     ->name('category.id')
