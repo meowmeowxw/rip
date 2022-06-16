@@ -302,6 +302,7 @@
         <x-FormInput name="description" idAndFor="description" :lblName="__('Description')" type="text"
                      inputValue="{{old('description')}}" />
         <x-FormInput name="star" idAndFor="start" :lblName="__('Star')" type="number"/>
+        <input type="hidden" id="reviewable_type" name="reviewable_type" value="App\Models\Product">
     </x-form.form>
    @endif
 

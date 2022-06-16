@@ -20,7 +20,6 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'is_seller',
         'userable_type',
         'userable_id',
     ];

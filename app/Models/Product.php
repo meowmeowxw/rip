@@ -41,4 +41,9 @@ class Product extends \Illuminate\Database\Eloquent\Model
     {
         return $this->quantity > 0;
     }
+
+    public function reviews()
+    {
+        return $this->morphMany(Review::class, 'reviewable');
+    }
 }

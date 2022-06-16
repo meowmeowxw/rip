@@ -98,6 +98,13 @@ Route::prefix('/customer')->group(function () {
     Route::get('/order/{id}', [CustomerOrdersController::class, 'create'])
         ->name('customer.order.id');
 
+    Route::get('/reviews', [\App\Http\Controllers\Customer\CustomerReviewsController::class, 'show'])
+        ->name('customer.reviews');
+    Route::get('/review/{id}', [\App\Http\Controllers\Customer\CustomerReviewsController::class, 'detail'])
+        ->name('customer.review.id');
+
+    Route::post('/update-review', [\App\Http\Controllers\ReviewController::class, 'updateReview'])
+        ->name('customer.update-review');
 });
 
 Route::get('/product/{id}', [ProductController::class, 'view'])

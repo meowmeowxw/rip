@@ -81,14 +81,16 @@ class ProductController extends Controller
             'star' => 'required|int|max:5|min:1',
             'description' => 'required|string|max:128',
             'id' => 'required|int',
+            'reviewable_type' => 'required|string|max:128'
         ]);
         $user = Auth::user();
         $customer = $user->role();
-        if ($this->checkIfCustomerOrderedProduct($request->id, $customer->id)) {
+        $review_controller = new ReviewController();
+        if ($review_controller->checkIfCustomerOrdered($customer, $request->id, $request->reviewable_type)) {
             $rev = Review::create([
                 'description' => $request->description,
                 'star' => $request->star,
-                'reviewable_type' => "App\\Models\\Product",
+                'reviewable_type' => $request->reviewable_type,
                 'reviewable_id' => $request->id,
                 'customer_id' => $customer->id,
             ]);

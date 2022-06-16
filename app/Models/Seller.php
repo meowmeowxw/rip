@@ -32,4 +32,9 @@ class Seller extends \Illuminate\Database\Eloquent\Model
         return $this->morphOne(User::class, 'userable');
     }
 
+    public function reviews()
+    {
+        return $this->morphMany(Review::class, 'reviewable');
+    }
+
 }
