@@ -14,7 +14,7 @@ class ReviewsSeeder extends Seeder
 {
     public function run(Faker $faker)
     {
-        foreach(SellerOrder::all() as $so) {
+        foreach(SellerOrder::all()->take(10) as $so) {
             $customer = $so->order->customer;
             $rev = Review::create([
                 'description' => $faker->words(rand(5, 10), true),
