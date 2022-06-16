@@ -33,6 +33,16 @@
                     @endforeach
                 </tbody>
                 </table>
+                @if($can_review)
+                    <x-form.form action="{{ route('customer.update-review') }}" btntext="{{ __('Send Review') }}"
+                                 btnaddclass="btn-block"
+                                 inputid="id" inputvalue="{{$seller->id}}">
+                        <x-FormInput name="description" idAndFor="description" :lblName="__('Description')" type="text"
+                                     inputValue="{{old('description')}}" />
+                        <x-FormInput name="star" idAndFor="star" :lblName="__('Star')" type="number"/>
+                        <input type="hidden" id="reviewable_type" name="reviewable_type" value="App\Models\Seller">
+                    </x-form.form>
+                @endif
                 <x-paginator>
                     {!! $products->links() !!}
                 </x-paginator>

@@ -83,6 +83,7 @@ class ReviewController extends Controller
                 $rev = $customer->reviews->where('reviewable_id', $request->id)
                     ->where('reviewable_type', $request->reviewable_type)
                     ->first();
+                echo $rev;
                 $rev->description = $request->description;
                 $rev->star = $request->star;
                 $rev->save();
@@ -92,6 +93,7 @@ class ReviewController extends Controller
         }
 
         if ($request->reviewable_type === "App\\Models\\Seller") {
+            echo "here";
             return redirect("/seller/".$request->id);
         } else {
             return redirect("/product/".$request->id);

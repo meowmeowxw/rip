@@ -295,39 +295,41 @@
     </div>
 
 
-   @if($can_review)
-    <x-form.form action="{{ route('product.set-review') }}" btntext="{{ __('Send Review') }}"
-                 btnaddclass="btn-block"
-                 inputid="product_id" inputvalue="{{$product->id}}">
-        <x-FormInput name="description" idAndFor="description" :lblName="__('Description')" type="text"
-                     inputValue="{{old('description')}}" />
-        <x-FormInput name="star" idAndFor="start" :lblName="__('Star')" type="number"/>
-        <input type="hidden" id="reviewable_type" name="reviewable_type" value="App\Models\Product">
-    </x-form.form>
-   @endif
+
+<div class="col-6 col-md-6 col-xl-6 mx-auto">
+        @if($can_review)
+        <x-form.form action="{{ route('product.set-review') }}" btntext="{{ __('Send Review') }}"
+                     btnaddclass="btn-block"
+                     inputid="product_id" inputvalue="{{$product->id}}">
+            <x-FormInput name="description" idAndFor="description" :lblName="__('Description')" type="text"
+                         inputValue="{{old('description')}}" />
+            <x-FormInput name="star" idAndFor="star" :lblName="__('Star')" type="number"/>
+            <input type="hidden" id="reviewable_type" name="reviewable_type" value="App\Models\Product">
+        </x-form.form>
+    @endif
 
     <div class="row justify-content-center">
-    <div class="col text-center">
-        <h4 class="display-4 text-center">
-            Reviews
-        </h4>
-    <table class="table">
-        <tr>
-        <tr>
-            <th scope="col"> Description</th>
-            <th scope="col"> Star</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach($reviews as $review)
-            <tr>
-                <th>{{$review["description"]}}</th>
-                <th>{{$review["star"]}}</th>
-            </tr>
-        @endforeach
-        </tbody>
-    </table>
+        <div class="col text-center">
+            <h4 class="display-4 text-center">
+                Reviews
+            </h4>
+            <table class="table">
+                <tr>
+                <tr>
+                    <th scope="col"> Description</th>
+                    <th scope="col"> Star</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($reviews as $review)
+                    <tr>
+                        <th>{{$review["description"]}}</th>
+                        <th>{{$review["star"]}}</th>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
-    </div>
-
+</div>
 @endsection

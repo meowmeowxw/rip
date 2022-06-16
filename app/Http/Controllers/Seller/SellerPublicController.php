@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Seller;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\ReviewController;
 use App\Models\User;
 use App\Models\Seller;
 use App\Models\Product;
@@ -37,6 +38,13 @@ class SellerPublicController extends Controller
             return abort(404);
         }
 
+        $review_controller = new ReviewController();
+        $can_review = false;
+        if (!Auth::user()->is_seller()) {
+            if (!$review_controller->checkIfAlreadyReviewed(Auth::user()->role(), $seller->id, Seller::class)) {
+                $can_review = true;
+            }
+        }
         $products = $seller->products()
             ->where('active', true)
             ->orderBy('id', 'DESC')
@@ -45,6 +53,7 @@ class SellerPublicController extends Controller
             'seller' => $seller,
             'products' => $products,
             'reviews' => $seller->reviews,
+            'can_review' => $can_review,
         ]);
     }
 

@@ -92,6 +92,7 @@
                             <a class="dropdown-item" href="{{route('seller.settings')}}">{{__('Settings')}}</a>
                         @else
                             <a class="dropdown-item" href="{{route('customer.settings')}}">{{__('Settings')}}</a>
+                            <a class="dropdown-item" href="{{route('customer.reviews')}}">{{__('Reviews')}}</a>
                         @endif
 
 
