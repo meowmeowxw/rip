@@ -38,11 +38,14 @@ class ProductController extends Controller
         $seller = $product->seller;
         $category = $product->category;
         $can_review = false;
-        if (!Auth::user()->is_seller()) {
-            $customer = Auth::user()->role();
-            if (!$this->checkIfProductIsAlreadyReviewed($product->id, Auth::user()->role())) {
-                $can_review = $this->checkIfCustomerOrderedProduct($product->id, Auth::user()->role()->id);
+        if (Auth::user()) {
+            if (!Auth::user()->is_seller()) {
+                $customer = Auth::user()->role();
+                if (!$this->checkIfProductIsAlreadyReviewed($product->id, Auth::user()->role())) {
+                    $can_review = $this->checkIfCustomerOrderedProduct($product->id, Auth::user()->role()->id);
+                }
             }
+
         }
         return view('product', [
             'product' => $product,

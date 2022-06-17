@@ -16,7 +16,7 @@ return new class extends Migration
         $this->down();
         Schema::create('payment_infos', function (Blueprint $table) {
             $table->id();
-            $table->string('card_number', 24);
+            $table->string('card_number', 24)->unique();
             $table->date('expire');
             $table->timestamps();
             $table->unsignedBigInteger('customer_id');

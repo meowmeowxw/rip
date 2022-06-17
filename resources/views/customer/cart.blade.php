@@ -155,16 +155,12 @@
                                             <x-form.form action="{{route('customer.cart.buy')}}"
                                                          btntext="{{ __('Buy') }}"
                                                          btnaddclass="btn-block">
-                                                <x-FormInput name="card_number" idAndFor="card_number"
-                                                             :lblName="__('Credit Card')"
-                                                             inputValue="{{Auth::user()->role()->card_number}}"
-                                                             type="text"/>
-                                                <x-FormInput name="street" idAndFor="street"
-                                                             :lblName="__('Street Address')"
-                                                             inputValue="{{Auth::user()->role()->street}}"
-                                                             type="text"/>
-                                                <x-FormInput name="city" idAndFor="city" :lblName="__('City')"
-                                                             inputValue="{{Auth::user()->role()->city}}" type="text"/>
+                                                <label for="shipping_info">Shipping Info</label>
+                                                <select name="shipping_info" id="shipping_info">
+                                                    @foreach(Auth::user()->role()->shippingInfos as $shippingInfo)
+                                                        <option value="{{$shippingInfo->id}}">{{($shippingInfo->street).",".($shippingInfo->city).",".($shippingInfo->cap)}}</option>
+                                                    @endforeach
+                                                </select>
                                             </x-form.form>
                                         </div>
                                     </div>

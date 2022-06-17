@@ -92,7 +92,6 @@ class StatisticsController extends Controller
                     FROM customers c
                     JOIN orders o on c.id = o.customer_id
                     JOIN seller_orders so on o.id = so.order_id
-                    JOIN sellers s on so.seller_id = s.id
                     JOIN status s2 on so.status_id = s2.id
                     JOIN (
                        SELECT u.email, u.userable_id
