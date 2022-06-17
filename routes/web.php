@@ -81,6 +81,10 @@ Route::prefix('/customer')->group(function () {
     Route::get('/settings', [CustomerSettingsController::class, 'create'])
         ->name('customer.settings');
     Route::post('/settings', [CustomerSettingsController::class, 'store']);
+    Route::post('/settings/shipping-info', [CustomerSettingsController::class, 'addShippingInfo'])
+        ->name('customer.settings.shippinginfo');
+    Route::post('/settings/payment-info', [CustomerSettingsController::class, 'addPaymentInfo'])
+        ->name('customer.settings.paymentinfo');
 
     Route::get('/cart', [CustomerCartController::class, 'create'])
         ->name('customer.cart');

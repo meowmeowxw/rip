@@ -163,7 +163,8 @@ class CustomerCartController extends Controller
     public function buy(Request $request)
     {
         $request->validate([
-            'shipping_info' => 'required|int'
+            'shipping_info' => 'required|int',
+            'payment_info' => 'required|int',
         ]);
 
         $productsOrder = $request->session()->get('productsOrder');
@@ -177,8 +178,17 @@ class CustomerCartController extends Controller
         if (!$ship_info) {
             return back();
         }
-        $order->shipping_info_id = $ship_info->id;
-        $order->payment_info_id = $customer->paymentInfo->id;
+        $pay_info = $customer->paymentInfos->where('id', $request->payment_info)->first();
+        if (!$pay_info) {
+            return back();
+        }
+        $order->street = $ship_info->street;
+        $order->city = $ship_info->city;
+        $order->cap = $ship_info->cap;
+        $order->card_number = $pay_info->card_number;
+        $order->expire = $pay_info->expire;
+        //$order->shipping_info_id = $ship_info->id;
+        //$order->payment_info_id = $customer->paymentInfo->id;
         $customer->orders()->save($order);
 
         $products = [];

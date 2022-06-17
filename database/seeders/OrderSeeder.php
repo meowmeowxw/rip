@@ -23,6 +23,11 @@ class OrderSeeder extends Seeder
             $order = new Order([
                 //'price' => rand(3, 10),
                 'created_at' => $created_at,
+                'street' => $faker->streetAddress(),
+                'city' => $faker->city(),
+                'cap' => $faker->numerify('#####'),
+                'card_number' => $faker->creditCardNumber(),
+                'expire' => $faker->date(),
             ]);
             $customer = Customer::all()
                 ->random(1)
@@ -33,8 +38,8 @@ class OrderSeeder extends Seeder
             $s->orders()->save($order);
             $p->orders()->save($order);
             echo $s."\n";*/
-            $order->payment_info_id = $customer->paymentInfo()->first()->id;
-            $order->shipping_info_id = $customer->shippingInfos()->first()->id;
+            //$order->payment_info_id = $customer->paymentInfo()->first()->id;
+            //$order->shipping_info_id = $customer->shippingInfos()->first()->id;
             echo $customer->shippingInfos()->first()."\n";
             $customer->orders()->save($order);
         }

@@ -161,6 +161,13 @@
                                                         <option value="{{$shippingInfo->id}}">{{($shippingInfo->street).",".($shippingInfo->city).",".($shippingInfo->cap)}}</option>
                                                     @endforeach
                                                 </select>
+                                                <br>
+                                                <label for="payment_info">Payment Info</label>
+                                                <select name="payment_info" id="payment_info">
+                                                    @foreach(Auth::user()->role()->paymentInfos as $paymentInfo)
+                                                        <option value="{{$paymentInfo->id}}">{{($paymentInfo->card_number).",".($shippingInfo->expire)}}</option>
+                                                    @endforeach
+                                                </select>
                                             </x-form.form>
                                         </div>
                                     </div>

@@ -25,9 +25,9 @@ class Customer extends \Illuminate\Database\Eloquent\Model
         return $this->hasMany(ShippingInfo::class);
     }
 
-    public function paymentInfo()
+    public function paymentInfos()
     {
-        return $this->hasOne(PaymentInfo::class);
+        return $this->hasMany(PaymentInfo::class);
     }
 
     public function user()

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Customer;
 
+use App\Models\PaymentInfo;
 use App\Providers\RouteServiceProvider;
+use App\Models\ShippingInfo;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -28,6 +30,40 @@ class CustomerSettingsController extends Controller
     {
         $customer = Auth::user()->role();
         return view('customer.settings', ['customer' => $customer]);
+    }
+
+    public function addShippingInfo(Request $request)
+    {
+        $request->validate([
+            'street' => 'required|string|max:128',
+            'city' => 'required|string|max:128',
+            'cap' => 'required|string|digits_between:3,10',
+        ]);
+        $customer = Auth::user()->role();
+
+        $customer->shippingInfos()->save($s = ShippingInfo::make([
+            'street' => $request->street,
+            'city' => $request->city,
+            'cap' => $request->cap,
+        ]));
+        $s->save();
+        return redirect(route('customer.settings'));
+    }
+
+    public function addPaymentInfo(Request $request)
+    {
+        $request->validate([
+            'card_number' => 'required|string|digits_between:10,24',
+            'expire' => 'required|date',
+        ]);
+        $customer = Auth::user()->role();
+
+        $customer->paymentInfos()->save($p = PaymentInfo::make([
+            'card_number' => $request->card_number,
+            'expire' => $request->expire,
+        ]));
+        $p->save();
+        return redirect(route('customer.settings'));
     }
 
     /**
@@ -59,9 +95,21 @@ class CustomerSettingsController extends Controller
                 'card_number' => 'required|string|digits_between:10,24',
                 'expire' => 'required|date',
             ]);
-            $user->role()->paymentInfo->card_number = $request->card_number;
-            $user->role()->paymentInfo->expire = $request->expire;
-            $user->role()->paymentInfo->save();
+            if ($request->action === 'Delete') {
+                if ($user->role()->paymentInfos->count() >= 2) {
+                    $p = $user->role()->paymentInfos->where('id', $request->id)->first();
+                    if ($p) {
+                        $p->delete();
+                    }
+                } else {
+                    return redirect(route('customer.settings'));
+                }
+            } else {
+                $p = $user->role()->paymentInfos->where('id', $request->id)->first();
+                $p->card_number = $request->card_number;
+                $p->expire = $request->expire;
+                $p->save();
+            }
         } elseIf ($request->type === 'shipping-info') {
             $request->validate([
                 'street' => 'required|string|max:128',
@@ -69,15 +117,26 @@ class CustomerSettingsController extends Controller
                 'cap' => 'required|string|digits_between:3,10',
                 'id' => 'required'
             ]);
-            $s = $user->role()->shippingInfos->where('id', $request->id)->first();
-            if (is_null($s)) {
-                App::abort(403, 's is '.$s);
-                return redirect(route('customer.settings'));
+            if ($request->action === 'Delete') {
+                if ($user->role()->shippingInfos->count() >= 2) {
+                    $s = $user->role()->shippingInfos->where('id', $request->id)->first();
+                    if ($s) {
+                        $s->delete();
+                    }
+                } else {
+                    return redirect(route('customer.settings'));
+                }
+            } else {
+                $s = $user->role()->shippingInfos->where('id', $request->id)->first();
+                if (is_null($s)) {
+                    App::abort(403, 's is '.$s);
+                    return redirect(route('customer.settings'));
+                }
+                $s->street = $request->street;
+                $s->city = $request->city;
+                $s->cap = $request->cap;
+                $s->save();
             }
-            $s->street = $request->street;
-            $s->city = $request->city;
-            $s->cap = $request->cap;
-            $s->save();
         }
 
         return redirect(route('customer.settings'));

@@ -104,7 +104,7 @@ class RegisteredUserController extends Controller
         ]));
 
         $customer->shippingInfos()->save($s = ShippingInfo::make([
-            'street' => $request->city,
+            'street' => $request->street,
             'city' => $request->city,
             'cap' => $request->cap,
         ]));

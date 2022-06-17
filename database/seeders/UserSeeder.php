@@ -36,7 +36,7 @@ class UserSeeder extends Seeder
                 'userable_type' => Customer::class,
             ]);
             $user->save();
-            $customer->paymentInfo()->save(PaymentInfo::factory()->make());
+            $customer->paymentInfos()->saveMany([PaymentInfo::factory()->make()]);
             $customer->shippingInfos()->saveMany(ShippingInfo::factory()->count(rand(1, 3))->make());
         });
         $s = Seller::find(1);
@@ -69,7 +69,7 @@ class UserSeeder extends Seeder
         ]);
         $seller_user->save();
         $customer_user->save();
-        $customer->paymentInfo()->save(PaymentInfo::factory()->make());
+        $customer->paymentInfos()->saveMany([PaymentInfo::factory()->make()]);
         $customer->shippingInfos()->saveMany(ShippingInfo::factory()->count(rand(1, 3))->make());
         $seller->save();
         $customer->save();
