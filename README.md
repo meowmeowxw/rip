@@ -1,6 +1,6 @@
 # Ripperoni
 
-Progetto di basi di dati 2022.
+Progetto di basi di dati 2022 gruppo 2092 giovanni.disanti@studio.unibo.it
 
 ## Run
 
