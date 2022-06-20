@@ -43,3 +43,21 @@ CREATE DATABASE example_app;
 
 Per un ambiente di sviluppo non siamo interessati a particolari misure di hardening
 di sicurezza.
+
+## Login
+
+Seller login:
+
+```
+email: a@a.it
+password: a
+```
+
+Customer login:
+
+```
+email: b@b.it
+password: b
+```
+
+
