@@ -110,7 +110,7 @@ class RegisteredUserController extends Controller
         ]));
         $s->save();
 
-        $customer->paymentInfo()->save($p = PaymentInfo::make([
+        $customer->paymentInfos()->save($p = PaymentInfo::make([
             'card_number' => $request->card_number,
             'expire' => $request->expire,
         ]));
