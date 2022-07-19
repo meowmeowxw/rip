@@ -41,7 +41,7 @@ GRANT ALL PRIVILEGES ON *.* TO 'sail'@'%' WITH GRANT OPTION;
 CREATE DATABASE example_app;
 ```
 
-Per un ambiente di sviluppo non siamo interessati a particolari misure di hardening
+Per un'ambiente di sviluppo non siamo interessati a particolari misure di hardening
 di sicurezza.
 
 ## Login
